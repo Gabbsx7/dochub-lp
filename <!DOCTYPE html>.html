@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocHub – Automação Completa de Notas Fiscais</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    * { 
+      font-family: 'Inter', sans-serif; 
+      scroll-margin-top: 5rem; 
+    }
+    html { scroll-behavior: smooth; }
+    body { 
+      background: #0b0a0f; 
+      color: #e1e1e6; 
+      overflow-x: hidden; 
+    }
+    ::selection { background: #ff4d9d33; }
+    
+    /* Cores customizadas */
+    .bg-brand1 { background-color: #00d1ff !important; }
+    .bg-brand2 { background-color: #ff4d9d !important; }
+    .bg-brand3 { background-color: #7b3cff !important; }
+    .text-brand1 { color: #00d1ff !important; }
+    .text-brand2 { color: #ff4d9d !important; }
+    .text-brand3 { color: #7b3cff !important; }
+    .border-brand1 { border-color: #00d1ff !important; }
+    .border-brand2 { border-color: #ff4d9d !important; }
+    .border-brand3 { border-color: #7b3cff !important; }
+    .bg-bg { background-color: #0b0a0f; }
+    .bg-surface { background-color: #14131a; }
+    .bg-card { background-color: #1e1d25; }
+    .text-txt { color: #e1e1e6; }
+    
+    /* Animações */
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-pulse-slow {
+      animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .animate-slideInUp {
+      animation: slideInUp 0.8s ease-out forwards;
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes slideInUp {
+      0% { transform: translateY(30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #00d1ff 0%, #ff4d9d 50%, #7b3cff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 209, 255, 0.15);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #00d1ff 0%, #ff4d9d 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 209, 255, 0.4);
+    }
+    
+    .hero-bg {
+      background: radial-gradient(circle at 20% 50%, rgba(123, 60, 255, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 77, 157, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(0, 209, 255, 0.2) 0%, transparent 50%);
+    }
+    
+    .stats-number {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    }
+    
+    .feature-icon {
+      background: linear-gradient(135deg, rgba(0, 209, 255, 0.2) 0%, rgba(255, 77, 157, 0.2) 100%);
+      padding: 1rem;
+      border-radius: 50%;
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #00d1ff, #ff4d9d, #7b3cff);
+      transform-origin: left;
+      z-index: 1000;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 209, 255, 0.3);
+      border-color: #00d1ff !important;
+    }
+    
+    /* Estilo para elementos do ROI Calculator */
+    .roi-input {
+      transition: all 0.3s ease;
+    }
+    
+    .roi-input:hover {
+      border-color: rgba(0, 209, 255, 0.5) !important;
+    }
+    
+    .roi-result {
+      transition: transform 0.3s ease;
+    }
+    
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      background: rgba(20, 19, 26, 0.98);
+      backdrop-filter: blur(20px);
+    }
+    
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+    
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 39;
+    }
+    
+    .mobile-menu-overlay.active {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .stats-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SCROLL INDICATOR -->
+  <div class="scroll-indicator" id="scroll-indicator"></div>
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 w-full z-50 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center gap-3">
+          <div class="w-14 h-14 rounded-xl overflow-hidden shadow-lg ">
+            <img src="./assets/logo-dochub.svg" alt="logo-dochub" class="w-full h-full object-cover" />
+          </div>
+          <span class="text-2xl font-black gradient-text">DocHub</span>
+        </div>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#problema" class="hover:text-brand1 transition-colors">Problema</a>
+          <a href="#solucao" class="hover:text-brand1 transition-colors">Solução</a>
+          <a href="#funcionalidades" class="hover:text-brand1 transition-colors">Recursos</a>
+          <a href="#depoimentos" class="hover:text-brand1 transition-colors">Clientes</a>
+          <a href="#planos" class="hover:text-brand1 transition-colors">Planos</a>
+          <button class="btn-primary px-6 py-2 rounded-lg font-semibold text-black relative overflow-hidden">
+            Teste Grátis
+          </button>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-2xl z-50 relative" id="mobile-menu-btn">
+          <i class="fas fa-bars" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 hero-bg relative overflow-hidden">
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-10 w-4 h-4 bg-brand1 rounded-full animate-float opacity-60"></div>
+    <div class="absolute top-40 right-20 w-6 h-6 bg-brand2 rounded-full animate-float opacity-40" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-20 left-20 w-3 h-3 bg-brand3 rounded-full animate-float opacity-50" style="animation-delay: 4s;"></div>
+    
+    <div class="animate-fadeIn">
+      <div class="inline-flex items-center gap-2 bg-gradient-to-r from-brand1/20 to-brand2/20 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-white/10">
+        <i class="fas fa-file-invoice text-brand1"></i>
+        <span>Automatize 100% das suas Notas Fiscais de Entrada</span>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight max-w-5xl mb-6">
+        <span class="gradient-text">Automação Completa</span>
+        <br>
+        de Notas Fiscais
+        <br>
+        <span class="text-3xl md:text-4xl lg:text-5xl">que Economiza Milhões</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl leading-relaxed">
+        Capture, valide e processe <strong class="text-brand1">100% das suas NFe de entrada</strong> automaticamente. 
+        Recupere créditos perdidos e <strong class="text-brand2">economize até R$ 2,3 milhões por ano</strong> 
+        eliminando processos manuais.
+      </p>
+      
+      <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
+        <button class="btn-primary px-10 py-4 rounded-xl font-bold text-black text-lg relative overflow-hidden">
+          <i class="fas fa-robot mr-2"></i>
+          Automatizar Agora
+        </button>
+        <button class="px-10 py-4 rounded-xl border-2 border-white/20 hover:bg-white/10 transition-all font-semibold text-lg flex items-center justify-center">
+          <i class="fas fa-play mr-2 text-brand1"></i>
+          Ver Automação (3 min)
+        </button>
+      </div>
+      
+      <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-400">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>Setup em 5 minutos</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>99.8% de precisão</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>30 dias grátis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="animate-slideInUp">
+          <div class="stats-number gradient-text mb-2">100%</div>
+          <p class="text-gray-400">NFes automatizadas</p>
+        </div>
+        <div class="animate-slideInUp" style="animation-delay: 0.2s;">
+          <div class="stats-number gradient-text mb-2">R$ 2.3M</div>
+          <p class="text-gray-400">Economia média anual</p>
+        </div>
+        <div class="animate-slideInUp" style="animation-delay: 0.4s;">
+          <div class="stats-number gradient-text mb-2">99.8%</div>
+          <p class="text-gray-400">Precisão na validação</p>
+        </div>
+        <div class="animate-slideInUp" style="animation-delay: 0.6s;">
+          <div class="stats-number gradient-text mb-2">5min</div>
+          <p class="text-gray-400">Para implementar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema" class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-6xl font-black mb-6">
+          Processos manuais estão <span class="gradient-text">custando milhões</span> 
+          para sua empresa
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          Cada nota fiscal de entrada processada manualmente <span class="text-brand1 font-bold">custa R$ 47</span> 
+          e leva <span class="text-brand2 font-bold">23 minutos</span>. 
+          Com 1.000 NFes/mês, você perde <span class="text-brand3 font-bold">R$ 564 mil por ano</span> só em retrabalho.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-2xl card-hover text-center">
+          <div class="feature-icon mx-auto mb-6">
+            <i class="fas fa-hourglass-half text-brand2"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Perda de Tempo</h3>
+          <p class="text-gray-300 mb-4">23 minutos por NFe para digitar, conferir e validar dados manualmente.</p>
+          <div class="text-3xl font-black text-brand2">-R$ 564k</div>
+          <p class="text-sm text-gray-400">Por ano com 1.000 NFes/mês</p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover text-center">
+          <div class="feature-icon mx-auto mb-6">
+            <i class="fas fa-coins text-brand1"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Créditos Perdidos</h3>
+          <p class="text-gray-300 mb-4">ICMS, PIS/COFINS não aproveitados por falta de controle adequado das entradas.</p>
+          <div class="text-3xl font-black text-brand1">-R$ 1.2M</div>
+          <p class="text-sm text-gray-400">Créditos não recuperados</p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover text-center">
+          <div class="feature-icon mx-auto mb-6">
+            <i class="fas fa-exclamation-triangle text-brand3"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Erros e Multas</h3>
+          <p class="text-gray-300 mb-4">Divergências e atrasos na escrituração geram multas recorrentes.</p>
+          <div class="text-3xl font-black text-brand3">-R$ 380k</div>
+          <p class="text-sm text-gray-400">Média anual em penalidades</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCAO -->
+  <section id="solucao" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-8">
+          <h2 class="text-4xl md:text-5xl font-black mb-6">
+            Automação <span class="gradient-text">100% inteligente</span> 
+            de Notas Fiscais
+          </h2>
+          
+          <div class="space-y-6">
+            <div class="glass p-6 rounded-2xl card-hover flex gap-6">
+              <div class="feature-icon">
+                <i class="fas fa-download text-brand1"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-xl mb-2">Captura Automática</h3>
+                <p class="text-gray-300">Monitora e baixa automaticamente todas as NFes de entrada de todos os fornecedores.</p>
+                <div class="mt-3 text-sm text-brand1 font-semibold">• Elimina 100% da digitação manual</div>
+              </div>
+            </div>
+            
+            <div class="glass p-6 rounded-2xl card-hover flex gap-6">
+              <div class="feature-icon">
+                <i class="fas fa-brain text-brand2"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-xl mb-2">Validação Inteligente</h3>
+                <p class="text-gray-300">IA valida CFOP, NCM, CST e detecta divergências automaticamente em tempo real.</p>
+                <div class="mt-3 text-sm text-brand2 font-semibold">• 99.8% de precisão na validação</div>
+              </div>
+            </div>
+            
+            <div class="glass p-6 rounded-2xl card-hover flex gap-6">
+              <div class="feature-icon">
+                <i class="fas fa-sync text-brand3"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-xl mb-2">Integração Total</h3>
+                <p class="text-gray-300">Sincroniza dados validados diretamente com seu ERP e sistemas contábeis.</p>
+                <div class="mt-3 text-sm text-brand3 font-semibold">• Zero retrabalho de digitação</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- DASHBOARD MOCK -->
+        <div class="glass rounded-3xl p-8 card-hover">
+          <div class="flex items-center justify-between mb-6">
+            <h4 class="font-bold text-xl">Automação em Tempo Real</h4>
+            <div class="flex gap-2">
+              <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <span class="text-xs text-green-400">Online</span>
+            </div>
+          </div>
+          
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-card p-4 rounded-xl text-center">
+              <div class="text-2xl font-black gradient-text mb-1">1.247</div>
+              <p class="text-xs text-gray-400">NFes processadas hoje</p>
+            </div>
+            <div class="bg-card p-4 rounded-xl text-center">
+              <div class="text-2xl font-black gradient-text mb-1">0</div>
+              <p class="text-xs text-gray-400">Erros detectados</p>
+            </div>
+            <div class="bg-card p-4 rounded-xl text-center">
+              <div class="text-2xl font-black gradient-text mb-1">847k</div>
+              <p class="text-xs text-gray-400">Créditos recuperados</p>
+            </div>
+          </div>
+          
+          <div class="bg-card p-6 rounded-xl">
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-sm text-gray-400">Fluxo de Automação</span>
+              <span class="text-xs text-green-400">Ativo</span>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-sm">Capturando NFes...</span>
+                <span class="text-xs text-brand1 ml-auto">234/min</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span class="text-sm">Validando dados...</span>
+                <span class="text-xs text-brand2 ml-auto">99.8%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span class="text-sm">Integrando com ERP...</span>
+                <span class="text-xs text-brand3 ml-auto">Tempo real</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNCIONALIDADES -->
+  <section id="funcionalidades" class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-black mb-6">
+          Automação completa <span class="gradient-text">em uma plataforma</span>
+        </h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Todos os recursos que você precisa para automatizar 100% das suas notas fiscais de entrada
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-2xl card-hover">
+          <div class="feature-icon mb-6">
+            <i class="fas fa-robot text-brand1"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-4">Captura Automática</h3>
+          <p class="text-gray-300 mb-4">Monitora continuamente e baixa todas as NFes de entrada de qualquer fornecedor.</p>
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>• Integração com Receita Federal</li>
+            <li>• Monitoramento 24/7</li>
+            <li>• Zero configuração manual</li>
+          </ul>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover">
+          <div class="feature-icon mb-6">
+            <i class="fas fa-search text-brand2"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-4">Validação Inteligente</h3>
+          <p class="text-gray-300 mb-4">IA identifica divergências, valida tributos e corrige automaticamente.</p>
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>• Validação de CFOP e NCM</li>
+            <li>• Conferência de valores</li>
+            <li>• Detecção de inconsistências</li>
+          </ul>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover">
+          <div class="feature-icon mb-6">
+            <i class="fas fa-coins text-brand3"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-4">Recuperação de Créditos</h3>
+          <p class="text-gray-300 mb-4">Identifica e calcula automaticamente todos os créditos de ICMS, PIS/COFINS.</p>
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>• Créditos em tempo real</li>
+            <li>• Relatórios para SPED</li>
+            <li>• Acompanhamento mensal</li>
+          </ul>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover">
+          <div class="feature-icon mb-6">
+            <i class="fas fa-sync text-brand1"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-4">Integração ERP</h3>
+          <p class="text-gray-300 mb-4">Sincroniza dados validados diretamente com SAP, Oracle, TOTVS e outros ERPs.</p>
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>• APIs nativas</li>
+            <li>• Sincronização em tempo real</li>
+            <li>• Zero retrabalho</li>
+          </ul>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover">
+          <div class="feature-icon mb-6">
+            <i class="fas fa-chart-bar text-brand2"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-4">Analytics Avançado</h3>
+          <p class="text-gray-300 mb-4">Dashboards em tempo real com KPIs fiscais e análise de performance.</p>
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>• Relatórios executivos</li>
+            <li>• Alertas proativos</li>
+            <li>• Benchmarking setorial</li>
+          </ul>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl card-hover">
+          <div class="feature-icon mb-6">
+            <i class="fas fa-shield-alt text-brand3"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-4">Compliance Total</h3>
+          <p class="text-gray-300 mb-4">Garante conformidade com todas as obrigações fiscais e acessórias.</p>
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>• Trilha de auditoria</li>
+            <li>• Armazenamento legal</li>
+            <li>• Backup automático</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-black mb-6">
+          Empresas que <span class="gradient-text">automatizaram</span> seus processos
+        </h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Cases reais de empresas que economizaram milhões automatizando suas NFes de entrada
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="testimonial-card p-8 rounded-2xl card-hover">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-brand1 to-brand2 rounded-full flex items-center justify-center text-white font-bold mr-4">
+              MR
+            </div>
+            <div>
+              <div class="font-bold">Marina Rodrigues</div>
+              <div class="text-sm text-gray-400">CFO - Indústria Alimentícia (1.200 NFes/mês)</div>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4 italic">
+            "Automatizamos 100% das notas de entrada em 3 dias. Eliminamos 480 horas mensais 
+            de digitação e recuperamos R$ 1.8M em créditos que estavam perdidos."
+          </p>
+          <div class="text-brand1 font-bold">Economia: R$ 1.8M no primeiro ano</div>
+        </div>
+        
+        <div class="testimonial-card p-8 rounded-2xl card-hover">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-brand2 to-brand3 rounded-full flex items-center justify-center text-white font-bold mr-4">
+              AS
+            </div>
+            <div>
+              <div class="font-bold">André Silva</div>
+              <div class="text-sm text-gray-400">Controller - Varejo Nacional (2.800 NFes/mês)</div>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4 italic">
+            "Reduzimos o tempo de fechamento mensal de 12 para 2 dias. Zero erro na 
+            escrituração e 100% dos créditos aproveitados automaticamente."
+          </p>
+          <div class="text-brand2 font-bold">Redução: 83% do tempo fiscal</div>
+        </div>
+        
+        <div class="testimonial-card p-8 rounded-2xl card-hover">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-brand3 to-brand1 rounded-full flex items-center justify-center text-white font-bold mr-4">
+              LC
+            </div>
+            <div>
+              <div class="font-bold">Luciana Costa</div>
+              <div class="text-sm text-gray-400">Diretora Fiscal - Distribuidora (850 NFes/mês)</div>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4 italic">
+            "Nossa equipe fiscal agora foca em estratégia, não em digitação. A automação 
+            detecta divergências que passariam anos despercebidas."
+          </p>
+          <div class="text-brand3 font-bold">Precisão: 99.8% na validação</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMEROS IMPACTO -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-black mb-6">
+          Números que <span class="gradient-text">impressionam</span>
+        </h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Dados reais baseados em 5.000+ empresas que automatizaram com DocHub
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="glass p-8 rounded-2xl text-center card-hover">
+          <div class="text-4xl md:text-5xl font-black gradient-text mb-4">R$ 2.3M</div>
+          <h3 class="text-xl font-bold mb-2">Economia Média</h3>
+          <p class="text-gray-400">Por empresa no primeiro ano de automação</p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl text-center card-hover">
+          <div class="text-4xl md:text-5xl font-black gradient-text mb-4">23min</div>
+          <h3 class="text-xl font-bold mb-2">Por NFe Manual</h3>
+          <p class="text-gray-400">Tempo médio gasto processando manualmente</p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl text-center card-hover">
+          <div class="text-4xl md:text-5xl font-black gradient-text mb-4">100%</div>
+          <h3 class="text-xl font-bold mb-2">Automação</h3>
+          <p class="text-gray-400">Das NFes de entrada processadas automaticamente</p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl text-center card-hover">
+          <div class="text-4xl md:text-5xl font-black gradient-text mb-4">5min</div>
+          <h3 class="text-xl font-bold mb-2">Setup</h3>
+          <p class="text-gray-400">Para começar a automatizar suas notas fiscais</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section id="planos" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-4xl md:text-5xl font-black mb-6">
+        Planos que se pagam <span class="gradient-text">sozinhos</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-12">
+        Economias garantidas desde o primeiro mês ou seu dinheiro de volta
+      </p>
+      
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Starter -->
+        <div class="glass p-8 rounded-3xl card-hover relative">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold mb-4">Starter</h3>
+            <div class="mb-6">
+              <span class="text-5xl font-black gradient-text">R$ 497</span>
+              <span class="text-lg text-gray-400">/mês</span>
+            </div>
+            <p class="text-gray-300">Ideal para até 500 NFes/mês</p>
+          </div>
+          
+          <ul class="text-left space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand1"></i>
+              <span>Até 500 NFes automatizadas/mês</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand1"></i>
+              <span>Captura e validação automática</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand1"></i>
+              <span>Dashboard básico</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand1"></i>
+              <span>1 integração ERP</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand1"></i>
+              <span>Suporte por chat</span>
+            </li>
+          </ul>
+          
+          <button class="w-full py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/20">
+            Começar Automação
+          </button>
+          
+          <div class="mt-4 text-sm text-gray-400">
+            Economia estimada: <span class="text-brand1 font-bold">R$ 284k/ano</span>
+          </div>
+        </div>
+        
+        <!-- Pro (Destaque) -->
+        <div class="glass border-2 border-brand2 p-8 rounded-3xl card-hover relative scale-105 z-10">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="bg-gradient-to-r from-brand1 to-brand2 px-6 py-2 rounded-full text-sm font-bold text-black">
+              MAIS POPULAR
+            </span>
+          </div>
+          
+          <div class="text-center mb-8 pt-4">
+            <h3 class="text-2xl font-bold mb-4">Pro</h3>
+            <div class="mb-6">
+              <span class="text-5xl font-black gradient-text">R$ 1.247</span>
+              <span class="text-lg text-gray-400">/mês</span>
+            </div>
+            <p class="text-gray-300">Perfeito para 500 a 5.000 NFes/mês</p>
+          </div>
+          
+          <ul class="text-left space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>Até 5.000 NFes automatizadas/mês</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>IA avançada de validação</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>Recuperação automática de créditos</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>Analytics em tempo real</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>Integrações ilimitadas</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>Onboarding dedicado</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand2"></i>
+              <span>Suporte prioritário</span>
+            </li>
+          </ul>
+          
+          <button class="btn-primary w-full py-4 font-bold text-black rounded-xl relative overflow-hidden">
+            Automatizar Agora - 30 Dias Grátis
+          </button>
+          
+          <div class="mt-4 text-sm text-gray-400">
+            Economia estimada: <span class="text-brand2 font-bold">R$ 1.44M/ano</span>
+          </div>
+        </div>
+        
+        <!-- Enterprise -->
+        <div class="glass p-8 rounded-3xl card-hover relative">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+            <div class="mb-6">
+              <span class="text-5xl font-black gradient-text">Custom</span>
+            </div>
+            <p class="text-gray-300">Acima de 5.000 NFes/mês</p>
+          </div>
+          
+          <ul class="text-left space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>NFes ilimitadas</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>IA personalizada por setor</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>Consultoria tributária inclusa</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>Suporte 24/7 dedicado</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>SLA garantido 99.9%</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>Gerente de conta</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-check text-brand3"></i>
+              <span>Instalação on-premise</span>
+            </li>
+          </ul>
+          
+          <button class="w-full py-4 bg-brand3 hover:brightness-110 text-black font-bold rounded-xl transition-all">
+            Falar com Especialista
+          </button>
+          
+          <div class="mt-4 text-sm text-gray-400">
+            Economia estimada: <span class="text-brand3 font-bold">R$ 5M+/ano</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="text-gray-300 mb-4">
+          <i class="fas fa-shield-alt text-brand1 mr-2"></i>
+          Garantia de 30 dias ou seu dinheiro de volta
+        </p>
+        <p class="text-sm text-gray-400">
+          Setup em 5 minutos • Migração gratuita • Treinamento completo incluso
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-black text-center mb-16">
+        Perguntas <span class="gradient-text">Frequentes</span>
+      </h2>
+      
+      <div class="space-y-6">
+        <div class="glass p-6 rounded-2xl">
+          <button class="w-full text-left flex justify-between items-center font-semibold text-lg faq-button">
+            <span>Como funciona a automação das notas fiscais?</span>
+            <i class="fas fa-chevron-down transition-transform faq-icon"></i>
+          </button>
+          <div class="hidden mt-4 text-gray-300 faq-content">
+            O DocHub monitora automaticamente a Receita Federal, captura suas NFes de entrada em tempo real, 
+            valida todos os dados com IA e integra diretamente com seu ERP. Todo o processo é 100% automático.
+          </div>
+        </div>
+        
+        <div class="glass p-6 rounded-2xl">
+          <button class="w-full text-left flex justify-between items-center font-semibold text-lg faq-button">
+            <span>Quanto tempo leva para implementar?</span>
+            <i class="fas fa-chevron-down transition-transform faq-icon"></i>
+          </button>
+          <div class="hidden mt-4 text-gray-300 faq-content">
+            A implementação completa leva apenas 5 minutos. Nossa equipe cuida de toda a configuração, 
+            e você já começa a receber NFes automatizadas no mesmo dia.
+          </div>
+        </div>
+        
+        <div class="glass p-6 rounded-2xl">
+          <button class="w-full text-left flex justify-between items-center font-semibold text-lg faq-button">
+            <span>Funciona com qualquer ERP?</span>
+            <i class="fas fa-chevron-down transition-transform faq-icon"></i>
+          </button>
+          <div class="hidden mt-4 text-gray-300 faq-content">
+            Sim! Temos conectores nativos para SAP, Oracle, TOTVS, Microsiga, Senior e mais de 200 outros sistemas. 
+            Também oferecemos APIs REST para integrações customizadas.
+          </div>
+        </div>
+        
+        <div class="glass p-6 rounded-2xl">
+          <button class="w-full text-left flex justify-between items-center font-semibold text-lg faq-button">
+            <span>Os dados ficam seguros?</span>
+            <i class="fas fa-chevron-down transition-transform faq-icon"></i>
+          </button>
+          <div class="hidden mt-4 text-gray-300 faq-content">
+            Utilizamos criptografia AES-256, infraestrutura AWS com certificação SOC 2, backups automáticos 
+            e armazenamento em território brasileiro conforme a LGPD.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-20 bg-surface text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-4xl md:text-6xl font-black mb-6">
+        Automatize suas NFes <span class="gradient-text">hoje mesmo</span>
+      </h2>
+      <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+        Junte-se a mais de 5.000 empresas que já automatizaram 100% das notas fiscais de entrada
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+        <button class="btn-primary px-12 py-5 rounded-xl font-bold text-black text-lg">
+          <i class="fas fa-robot mr-2"></i>
+          Automatizar Agora - 30 Dias Grátis
+        </button>
+        <button class="px-12 py-5 rounded-xl border-2 border-white/20 hover:bg-white/10 transition-all font-semibold text-lg">
+          <i class="fas fa-phone mr-2 text-brand1"></i>
+          Falar com Especialista
+        </button>
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-8 text-sm text-gray-400">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>Setup em 5 minutos</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>100% automático</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>Suporte brasileiro</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span>Garantia de resultado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-16 bg-bg border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-14 h-14 rounded-xl overflow-hidden shadow-lg ">
+            <img src="./assets/logo-dochub.svg" alt="logo-dochub" class="w-full h-full object-cover" />
+            </div>
+            <span class="text-2xl font-black gradient-text">DocHub</span>
+          </div>
+          <p class="text-gray-400 max-w-md mb-6">
+            A plataforma de automação de notas fiscais mais avançada do Brasil. 
+            Automatize 100% das NFes de entrada e economize milhões.
+          </p>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand1 hover:text-black transition-all">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand2 hover:text-black transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand3 hover:text-black transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-6">Produto</h4>
+          <ul class="space-y-3 text-gray-400">
+            <li><a href="#" class="hover:text-brand1 transition-colors">Automação NFes</a></li>
+            <li><a href="#" class="hover:text-brand1 transition-colors">Integrações</a></li>
+            <li><a href="#" class="hover:text-brand1 transition-colors">API</a></li>
+            <li><a href="#" class="hover:text-brand1 transition-colors">Segurança</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-6">Suporte</h4>
+          <ul class="space-y-3 text-gray-400">
+            <li><a href="#" class="hover:text-brand1 transition-colors">Central de Ajuda</a></li>
+            <li><a href="#" class="hover:text-brand1 transition-colors">Documentação</a></li>
+            <li><a href="#" class="hover:text-brand1 transition-colors">Status</a></li>
+            <li><a href="#" class="hover:text-brand1 transition-colors">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-400 text-sm">
+          © 2025 DocHub. Todos os direitos reservados.
+        </div>
+        <div class="flex gap-6 text-sm text-gray-400">
+          <a href="#" class="hover:text-brand1 transition-colors">Termos de Uso</a>
+          <a href="#" class="hover:text-brand1 transition-colors">Política de Privacidade</a>
+          <a href="#" class="hover:text-brand1 transition-colors">LGPD</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Aguardar o DOM carregar completamente
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM carregado - Inicializando scripts...');
+      
+      // Mobile Menu Toggle - Versão Melhorada
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+      const menuIcon = document.getElementById('menu-icon');
+      
+      if (mobileMenuBtn && mobileMenu && mobileMenuOverlay) {
+        function toggleMobileMenu() {
+          const isActive = mobileMenu.classList.contains('active');
+          
+          if (isActive) {
+            // Fechar menu
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            menuIcon.className = 'fas fa-bars';
+            document.body.style.overflow = 'auto';
+          } else {
+            // Abrir menu
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            menuIcon.className = 'fas fa-times';
+            document.body.style.overflow = 'hidden';
+          }
+        }
+        
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+        
+        // Close mobile menu when clicking on links
+        const menuLinks = document.querySelectorAll('.menu-link');
+        menuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            menuIcon.className = 'fas fa-bars';
+            document.body.style.overflow = 'auto';
+          });
+        });
+        
+        // Close menu on ESC key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        });
+      }
+
+      // Scroll Indicator
+      window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        const indicator = document.getElementById('scroll-indicator');
+        if (indicator) {
+          indicator.style.transform = `scaleX(${Math.min(scrolled / 100, 1)})`;
+        }
+      });
+
+      // FAQ Toggle
+      const faqButtons = document.querySelectorAll('.faq-button');
+      faqButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const content = this.parentElement.querySelector('.faq-content');
+          const icon = this.querySelector('.faq-icon');
+          
+          if (content && icon) {
+            if (content.classList.contains('hidden')) {
+              content.classList.remove('hidden');
+              icon.style.transform = 'rotate(180deg)';
+            } else {
+              content.classList.add('hidden');
+              icon.style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Add scroll animation to elements
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements with animation classes
+      document.querySelectorAll('.animate-slideInUp, .animate-fadeIn').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.8s ease-out';
+        observer.observe(el);
+      });
+      
+      console.log('Todos os scripts inicializados com sucesso!');
+    });
+
+    // Configurar Tailwind (se disponível)
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand1: "#00d1ff",
+              brand2: "#ff4d9d", 
+              brand3: "#7b3cff",
+              bg: "#0b0a0f",
+              surface: "#14131a",
+              card: "#1e1d25",
+              txt: "#e1e1e6"
+            }
+          }
+        }
+      };
+    }
+  </script>
+</body>
+</html>
